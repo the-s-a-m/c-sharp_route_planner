@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
 {
-    class Cities
+    public class Cities
     {
         private List<City> citiesList;
 
@@ -60,7 +60,11 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
             while (c != null)
             {
                 String[] cSplit = c.Split('\t');
-                citiesList.Add(new City(cSplit[0], cSplit[1], Convert.ToInt32(cSplit[2]), Convert.ToDouble(cSplit[3]), Convert.ToDouble(cSplit[4])));
+                City newCity = new City(cSplit[0], cSplit[1], Convert.ToInt32(cSplit[2]), Convert.ToDouble(cSplit[3]), Convert.ToDouble(cSplit[4]));
+                if (!citiesList.Contains(newCity))
+                {
+                    citiesList.Add(newCity);
+                }
                 c = reader.ReadLine();
             }
             return citiesList.Count;
