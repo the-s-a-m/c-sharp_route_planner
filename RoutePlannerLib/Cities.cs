@@ -57,17 +57,19 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
         {
             TextReader reader = new StreamReader(filename);
             String c = reader.ReadLine();
+            int count = 0;
             while (c != null)
             {
                 String[] cSplit = c.Split('\t');
                 City newCity = new City(cSplit[0], cSplit[1], Convert.ToInt32(cSplit[2]), Convert.ToDouble(cSplit[3]), Convert.ToDouble(cSplit[4]));
-                if (!citiesList.Contains(newCity))
-                {
+                //if (!citiesList.Contains(newCity))
+                //{
                     citiesList.Add(newCity);
-                }
+                    count++;
+                //}
                 c = reader.ReadLine();
             }
-            return citiesList.Count;
+            return count;
         }
     }
 }
