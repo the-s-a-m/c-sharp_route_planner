@@ -41,7 +41,11 @@
   <ItemGroup>
     <Compile Include="Cities.cs" />
     <Compile Include="City.cs" />
+    <Compile Include="Link.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RouteRequestEventArgs.cs" />
+    <Compile Include="RouteRequestWatcher.cs" />
+    <Compile Include="Routes.cs" />
     <Compile Include="WayPoint.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

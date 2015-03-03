@@ -9,6 +9,8 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerConsole
 {
     class RoutePlannerConsoleApp
     {
+        private const string CitiesTestFile = "citiesTestDataLab3.txt";
+
         static void Main(string[] args)
         {
             Console.WriteLine("Welcome to RoutePlanner (Version " +
@@ -20,6 +22,7 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerConsole
             var bern = new WayPoint("Bern", 46.949690, 7.442420);
             var tripolis = new WayPoint("Tripolis", 32.815062, 13.105445);
             Console.WriteLine(bern.Distance(tripolis));
+
             Console.ReadLine();
         }
     }

@@ -71,5 +71,10 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
             }
             return count;
         }
+
+        public City FindCity(string cityName)
+        {
+            return citiesList.Find(c => c.Name.Equals(cityName , StringComparison.OrdinalIgnoreCase));
+        }
     }
 }

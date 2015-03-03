@@ -51,6 +51,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="Lab2Test.cs" />
+    <Compile Include="Lab3Test.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -61,6 +62,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="data\citiesTestDataLab2.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="data\citiesTestDataLab3.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="data\linksTestDataLab3.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

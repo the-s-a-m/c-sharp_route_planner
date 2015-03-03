@@ -44,24 +44,5 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
             return (Math.PI / 180) * angle;
         }
 
-
-        public override bool Equals(System.Object obj)
-        {
-            // If parameter is null return false.
-            if (obj == null)
-            {
-                return false;
-            }
-
-            // If parameter cannot be cast to Point return false.
-            WayPoint wp = obj as WayPoint;
-            if ((System.Object)wp == null)
-            {
-                return false;
-            }
-
-            // Return true if the fields match:
-            return (Name == wp.Name) && (Longitude == wp.Longitude) && (Latitude == wp.Latitude);
-        }
     }
 }
