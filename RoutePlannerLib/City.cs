@@ -8,7 +8,7 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
 {
     public class City
     {
-        private readonly double _laltitude;
+        private readonly double laltitude;
         public string Name { get; private set; }
         public string Country { get; private set; }
         public int Population { get; private set; }
@@ -16,7 +16,7 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
 
         public City(string name, string country, int population, double laltitude, double longitude)
         {
-            this._laltitude = laltitude;
+            this.laltitude = laltitude;
             Name = name;
             Country = country;
             Population = population;
