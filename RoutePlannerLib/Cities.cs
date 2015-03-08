@@ -9,42 +9,46 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
 {
     public class Cities
     {
-        private List<City> citiesList;
+        private readonly List<City> citiesList;
 
         public Cities()
         {
             citiesList = new List<City>();
         }
 
+        /// <summary>
+        /// Index based access to the individual city objects.
+        /// </summary>
+        /// <param name="index">Numerical index in the range [0, Cities.Count)</param>
+        /// <returns></returns>
         public City this[int index]
         {
-            get 
+            get
             {
                 if (index < 0 || index > this.Count)
                 {
                     return null;
                 }
-                else
-                {
-                    return citiesList[index]; 
-                }
+                return citiesList[index];
             }
             set { citiesList[index] = value; }
         }
 
+        /// <summary>
+        /// Returns all cities, which have a distance &lt;= the given distance from the given location.
+        /// </summary>
+        /// <param name="location"></param>
+        /// <param name="distance"></param>
+        /// <returns>List of cities which match the condtitions.</returns>
         public List<City> FindNeighbours(WayPoint location, double distance)
         {
-            var foundCities = new List<City>();
-            foreach(var c in citiesList) 
-            {
-                if (location.Distance(c.Location) <= distance)
-                {
-                    foundCities.Add(c);
-                }
-            }
+            var foundCities = citiesList.Where(c => location.Distance(c.Location) <= distance).ToList();
             return foundCities.OrderBy(o => location.Distance(o.Location)).ToList();
         }
 
+        /// <summary>
+        /// Number of elements contained by this instance.
+        /// </summary>
         public int Count
         {
             get
@@ -53,23 +57,28 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
             }
         }
 
+        /// <summary>
+        /// Reads cities from the given file into this instance
+        /// </summary>
+        /// <param name="filename">Filename of the city source</param>
+        /// <returns>Number of new cities</returns>
         public int ReadCities(string filename)
         {
-            TextReader reader = new StreamReader(filename);
-            String c = reader.ReadLine();
-            int count = 0;
-            while (c != null)
+            using (TextReader reader = new StreamReader(filename))
             {
-                String[] cSplit = c.Split('\t');
-                City newCity = new City(cSplit[0], cSplit[1], Convert.ToInt32(cSplit[2]), Convert.ToDouble(cSplit[3]), Convert.ToDouble(cSplit[4]));
-                //if (!citiesList.Contains(newCity))
-                //{
+                int count = 0;
+                String c = reader.ReadLine();
+                while (c != null)
+                {
+                    String[] cSplit = c.Split('\t');
+                    City newCity = new City(cSplit[0], cSplit[1], Convert.ToInt32(cSplit[2]),
+                        Convert.ToDouble(cSplit[3]), Convert.ToDouble(cSplit[4]));
                     citiesList.Add(newCity);
-                    count++;
-                //}
-                c = reader.ReadLine();
+                    ++count;
+                    c = reader.ReadLine();
+                }
+                return count;
             }
-            return count;
         }
 
         public City FindCity(string cityName)

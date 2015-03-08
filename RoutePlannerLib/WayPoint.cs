@@ -14,22 +14,19 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
 
         private const int ROfEarth = 6371;
 
-        public WayPoint(string _name, double _laltitude, double _longitude)
+        public WayPoint(string name, double laltitude, double longitude)
         {
-            Name = _name;
-            Latitude = _laltitude;
-            Longitude = _longitude;
+            Name = name;
+            Latitude = laltitude;
+            Longitude = longitude;
         }
 
-        public override String ToString() 
+        public override String ToString()
         {
             if(Name == null) {
-                return "WayPoint: " + Math.Round(Latitude, 2) + "/" + Math.Round(Longitude, 2);
+                return string.Format("WayPoint: {0:F2}/{1:F2}", Latitude, Longitude);
             }
-            else
-            {
-                return "WayPoint: " + Name + " " + Math.Round(Latitude, 2) + "/" +  Math.Round(Longitude, 2);
-            }
+            return string.Format("WayPoint: {0} {1:F2}/{2:F2}", Name, Latitude, Longitude);
         }
 
         public double Distance(WayPoint target)
