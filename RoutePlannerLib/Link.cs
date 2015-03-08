@@ -10,11 +10,11 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
     /// </summary>
     public class Link : IComparable
     {
-        private City fromCity;
-        private City toCity;
-        double distance;
+        private readonly City fromCity;
+        private readonly City toCity;
+        readonly double distance;
 
-        TransportModes transportMode = TransportModes.Car;
+        readonly TransportModes transportMode = TransportModes.Car;
 
         public TransportModes TransportMode
         {

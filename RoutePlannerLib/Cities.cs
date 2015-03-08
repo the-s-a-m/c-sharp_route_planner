@@ -81,6 +81,11 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
             }
         }
 
+        /// <summary>
+        /// Searches for a city with the given name. (Case insensitive)
+        /// </summary>
+        /// <param name="cityName"></param>
+        /// <returns></returns>
         public City FindCity(string cityName)
         {
             return citiesList.Find(c => c.Name.Equals(cityName , StringComparison.OrdinalIgnoreCase));

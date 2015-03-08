@@ -8,7 +8,7 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
 {
     public class RouteRequestWatcher
     {
-        private Dictionary<string, int> routeCounter = new Dictionary<string, int>();
+        private readonly Dictionary<string, int> routeCounter = new Dictionary<string, int>();
 
         public void LogRouteRequests(object sender, RouteRequestEventArgs e)
         {
@@ -34,10 +34,6 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
                 if (routeCounter.ContainsKey(cityLowered))
                 {
                     return routeCounter[cityLowered];
-                }
-                else
-                {
-                    return 0;
                 }
             }
             return 0;

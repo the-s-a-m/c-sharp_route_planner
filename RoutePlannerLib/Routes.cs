@@ -13,8 +13,8 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
     /// </summary>
     public class Routes
     {
-        private List<Link> routes = new List<Link>();
-        private Cities cities;
+        private readonly List<Link> routes = new List<Link>();
+        private readonly Cities cities;
         public delegate void RouteRequestHandler(object sender, RouteRequestEventArgs e);
         public event RouteRequestHandler RouteRequestEvent;
 

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
 {
-    public class RouteRequestEventArgs : System.EventArgs
+    public class RouteRequestEventArgs : EventArgs
     {
 
         public TransportModes TransportMode { get; private set; }
@@ -14,11 +14,11 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
         public string ToCity { get; private set; }
 
 
-        public RouteRequestEventArgs(string _fromCity, string _toCity, TransportModes _transportMode)
+        public RouteRequestEventArgs(string fromCity, string toCity, TransportModes transportMode)
         {
-            FromCity = _fromCity;
-            ToCity = _toCity;
-            TransportMode = _transportMode;
+            FromCity = fromCity;
+            ToCity = toCity;
+            TransportMode = transportMode;
         }
     }
 }
