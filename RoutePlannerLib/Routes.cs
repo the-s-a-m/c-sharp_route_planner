@@ -176,7 +176,7 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
             return previous;
         }
 
-        //Weiss nicht was ich hier genau machen soll? Für was ist der transportMode?
+        //Für was wird der transportMode übergeben, dieser ist als readonly markiert im waypoint?
         private Link FindLink(City u, City n, TransportModes mode)
         {
             if (u != null && n != null)
