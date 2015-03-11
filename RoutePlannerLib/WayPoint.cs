@@ -41,5 +41,14 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
             return (Math.PI / 180) * angle;
         }
 
+        public static WayPoint operator+ (WayPoint w1, WayPoint w2) 
+        {
+            return new WayPoint(w1.Name, w1.Latitude + w2.Latitude, w1.Longitude + w2.Longitude);
+        }
+
+        public static WayPoint operator- (WayPoint w1, WayPoint w2)
+        {
+            return new WayPoint(w1.Name, w1.Latitude - w2.Latitude, w1.Longitude - w2.Longitude);
+        }
     }
 }
