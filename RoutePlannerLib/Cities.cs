@@ -45,7 +45,7 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
         /// <returns>List of cities which match the condtitions.</returns>
         public List<City> FindNeighbours(WayPoint location, double distance)
         {
-            var foundCities = citiesList.Where(c => location.Distance(c.Location) <= distance);
+            var foundCities = cityList.Where(c => location.Distance(c.Location) <= distance);
             return foundCities.OrderBy(o => location.Distance(o.Location)).ToList();
         }
 
