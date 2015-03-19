@@ -23,7 +23,9 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerConsole
             var tripolis = new WayPoint("Tripolis", 32.815062, 13.105445);
             Console.WriteLine(bern.Distance(tripolis));
 
-            
+            var cities = new Cities();
+            IRoutes routes = RoutesFactory.Create(cities);
+            Console.WriteLine(routes);
 
             Console.ReadLine();
         }
