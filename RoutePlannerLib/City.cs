@@ -14,6 +14,15 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
         public int Population { get; private set; }
         public WayPoint Location { get; private set; }
 
+        public City() 
+        {
+            this.laltitude = 0.0;
+            Name = "";
+            Country = "";
+            Population = 0;
+            Location = new WayPoint();
+        }
+
         public City(string name, string country, int population, double laltitude, double longitude)
         {
             this.laltitude = laltitude;
@@ -21,6 +30,11 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
             Country = country;
             Population = population;
             Location = new WayPoint(Name, laltitude, longitude);
+        }
+
+        public override string ToString()
+        {
+            return Name + " " + Country + " " + Convert.ToString(Population) + " " + Convert.ToString(laltitude);
         }
     }
 }

@@ -18,7 +18,6 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
 
         public static IRoutes Create(Cities cities, string algorithmClassName)
         {
-            Console.WriteLine("washere0");
             if (Type.GetType(algorithmClassName) != null)
             {
                 try

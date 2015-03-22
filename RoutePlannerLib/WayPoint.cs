@@ -14,6 +14,13 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
 
         private const int ROfEarth = 6371;
 
+        public WayPoint() 
+        {
+            Name = "";
+            Latitude = 0.0;
+            Longitude = 0.0;
+        }
+
         public WayPoint(string name, double laltitude, double longitude)
         {
             Name = name;
