@@ -19,5 +19,14 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib.Util
                 c = tr.ReadLine();
             }
         }
+
+        public static IEnumerable<T> ForEach2<T>(this IEnumerable<T> enumeration, Action<T> action)
+        {
+            foreach (var item in enumeration)
+            {
+                action(item);
+                yield return item;
+            }
+        }
     }
 }

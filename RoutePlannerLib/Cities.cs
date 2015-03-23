@@ -69,35 +69,18 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
         {
             using (TextReader reader = new StreamReader(filename))
             {
-
-                /* Ging so nicht
-                citiesAsStrings.ToList().ForEach(s => cityList.Add(new City(s[0], s[1], int.Parse(s[2], CultureInfo.InvariantCulture), 
-                    double.Parse(s[3], CultureInfo.InvariantCulture), double.Parse(s[4], CultureInfo.InvariantCulture))));
-                */
-                int count = 0;
+                //Bin nicht sicher ob das so korrekt ist?
+                var line = reader.GetSplittedLines('\t').ToList();
+                var s = line.ForEach2(c => cityList.Add(new City(c[0], c[1], int.Parse(c[2], CultureInfo.InvariantCulture),
+                        double.Parse(c[3], CultureInfo.InvariantCulture), double.Parse(c[4], CultureInfo.InvariantCulture))));
+                /* Old Mehod
                 foreach(var c in reader.GetSplittedLines('\t'))
                 {
                     cityList.Add(new City(c[0], c[1], int.Parse(c[2], CultureInfo.InvariantCulture),
                         double.Parse(c[3], CultureInfo.InvariantCulture), double.Parse(c[4], CultureInfo.InvariantCulture)));
                     ++count;
-                }
-                return count;
-
-
-                /* Old Code
-                int count = 0;
-                String c = reader.ReadLine();
-                while (c != null)
-                {
-                    String[] cSplit = c.Split('\t');
-                    City newCity = new City(cSplit[0], cSplit[1], Convert.ToInt32(cSplit[2]),
-                        Convert.ToDouble(cSplit[3]), Convert.ToDouble(cSplit[4]));
-                    cityList.Add(newCity);
-                    ++count;
-                    c = reader.ReadLine();
-                }
-                return count;
-                 */
+                }*/
+                return s.Count();
             }
         }
 

@@ -222,5 +222,10 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
             citiesOnRoute.Reverse();
             return citiesOnRoute;
         }
+
+        public City[] FindCities(TransportModes transportMode)
+        {
+            return routes.FindAll(r => r.TransportMode == transportMode);
+        }
     }
 }

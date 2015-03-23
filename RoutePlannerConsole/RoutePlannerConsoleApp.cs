@@ -37,7 +37,7 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerConsole
             writer.Next(c1);
             Console.WriteLine(stream.ToString());
 
-            Console.WriteLine("readTest");
+            Console.WriteLine("readTest Lab5");
             const string cityString1 = "Instance of Fhnw.Ecnf.RoutePlanner.RoutePlannerLib.City\r\nName=\"Aarau\"\r\nCountry=\"Switzerland\"\r\nPopulation=10\r\nLocation is a nested object...\r\nInstance of Fhnw.Ecnf.RoutePlanner.RoutePlannerLib.WayPoint\r\nName=\"Aarau\"\r\nLongitude=2.2\r\nLatitude=1.1\r\nEnd of instance\r\nEnd of instance\r\n";
             const string cityString2 = "Instance of Fhnw.Ecnf.RoutePlanner.RoutePlannerLib.City\r\nName=\"Bern\"\r\nCountry=\"Switzerland\"\r\nPopulation=10\r\nLocation is a nested object...\r\nInstance of Fhnw.Ecnf.RoutePlanner.RoutePlannerLib.WayPoint\r\nName=\"Bern\"\r\nLongitude=2.2\r\nLatitude=1.1\r\nEnd of instance\r\nEnd of instance\r\n";
             const string cityString = cityString1 + cityString2;
@@ -51,6 +51,19 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerConsole
                 Console.WriteLine("city was null");
             }
             Console.WriteLine(city1.ToString());
+
+            Console.WriteLine("ActionTest Lab6");
+            var actions = new Action[3];
+            for (var i = 0; i < actions.Length; i++)
+            {
+                var z = i;
+                actions[i] = () => Console.Write(z);
+            }
+
+            foreach (var a in actions)
+            {
+                a();
+            } 
 
             Console.ReadLine();
         }
