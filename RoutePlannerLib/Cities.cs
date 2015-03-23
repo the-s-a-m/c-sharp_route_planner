@@ -69,18 +69,18 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
         {
             using (TextReader reader = new StreamReader(filename))
             {
-                //Bin nicht sicher ob das so korrekt ist?
-                var line = reader.GetSplittedLines('\t').ToList();
-                var s = line.ForEach2(c => cityList.Add(new City(c[0], c[1], int.Parse(c[2], CultureInfo.InvariantCulture),
-                        double.Parse(c[3], CultureInfo.InvariantCulture), double.Parse(c[4], CultureInfo.InvariantCulture))));
-                /* Old Mehod
-                foreach(var c in reader.GetSplittedLines('\t'))
-                {
-                    cityList.Add(new City(c[0], c[1], int.Parse(c[2], CultureInfo.InvariantCulture),
-                        double.Parse(c[3], CultureInfo.InvariantCulture), double.Parse(c[4], CultureInfo.InvariantCulture)));
-                    ++count;
-                }*/
-                return s.Count();
+                var lines = reader.GetSplittedLines('\t');
+                var count0 = cityList.Count;
+                cityList.AddRange(
+                    from l in lines
+                    select new City(
+                        name: l[0],
+                        country: l[1],
+                        population: Int32.Parse(l[2], CultureInfo.InvariantCulture),
+                        laltitude: Double.Parse(l[3], CultureInfo.InvariantCulture),
+                        longitude: Double.Parse(l[4], CultureInfo.InvariantCulture))
+                );
+                return cityList.Count - count0;
             }
         }
 
