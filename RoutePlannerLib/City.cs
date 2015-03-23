@@ -32,9 +32,5 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
             Location = new WayPoint(Name, laltitude, longitude);
         }
 
-        public override string ToString()
-        {
-            return Name + " " + Country + " " + Convert.ToString(Population) + " " + Convert.ToString(laltitude);
-        }
     }
 }

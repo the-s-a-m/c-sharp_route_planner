@@ -20,13 +20,5 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib.Util
             }
         }
 
-        public static IEnumerable<T> ForEach2<T>(this IEnumerable<T> enumeration, Action<T> action)
-        {
-            foreach (var item in enumeration)
-            {
-                action(item);
-                yield return item;
-            }
-        }
     }
 }
