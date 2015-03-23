@@ -225,7 +225,13 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
 
         public City[] FindCities(TransportModes transportMode)
         {
-            return routes.FindAll(r => r.TransportMode == transportMode);
+            ISet<City> set = new HashSet<City>();
+            foreach (var r in routes.Where(r => r.TransportMode == transportMode))
+            {
+                set.Add(r.FromCity);
+                set.Add(r.ToCity);
+            }
+            return set.ToArray();
         }
     }
 }
