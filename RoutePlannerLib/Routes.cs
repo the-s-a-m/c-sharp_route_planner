@@ -133,7 +133,9 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
             {
                 City u = null;
                 var minDist = double.MaxValue;
+
                 // find city u with smallest dist
+                // also possible with q.Where(c => dist[c] < minDist)
                 foreach (var c in q)
                 {
                     if (dist[c] < minDist)

@@ -21,7 +21,7 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
                 }
                 else
                 {
-                    routeCounter.Add(toCityLowered, 1);
+                    routeCounter[toCityLowered] = 1;
                 }
             }
         }
