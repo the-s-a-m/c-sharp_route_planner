@@ -178,11 +178,7 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
         //Für was wird der transportMode übergeben, dieser ist als readonly markiert im waypoint?
         private Link FindLink(City u, City n, TransportModes mode)
         {
-            if (u != null && n != null)
-            {
-                return new Link(u, n, u.Location.Distance(n.Location));
-            }
-            return null;
+            return u != null && n != null ? new Link(u, n, u.Location.Distance(n.Location)) : null;
         }
 
 
@@ -194,17 +190,12 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
         /// <returns>list of neighbor cities</returns>
         private List<City> FindNeighbours(City city, TransportModes mode)
         {
-            var neighbors = new List<City>();
-            foreach (var r in routes)
-                if (mode.Equals(r.TransportMode))
-                {
-                    if (city.Equals(r.FromCity))
-                        neighbors.Add(r.ToCity);
-                    else if (city.Equals(r.ToCity))
-                        neighbors.Add(r.FromCity);
-                }
+            return (
+                from route in routes
+                where route.TransportMode.Equals(mode) && (route.FromCity.Equals(city) || route.ToCity.Equals(city))
+                select route.FromCity.Equals(city) ? route.ToCity : route.FromCity
+            ).ToList();
 
-            return neighbors;
         }
 
         private List<City> GetCitiesOnRoute(City source, City target, Dictionary<City, City> previous)
@@ -222,6 +213,11 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
             return citiesOnRoute;
         }
 
+        /// <summary>
+        /// Returns a set (unique entries) of cities, which have routes with this transport mode.
+        /// </summary>
+        /// <param name="transportMode"></param>
+        /// <returns></returns>
         public City[] FindCities(TransportModes transportMode)
         {
             ISet<City> set = new HashSet<City>();
