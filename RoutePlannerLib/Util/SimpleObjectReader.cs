@@ -11,23 +11,24 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib.Util
 {
     public class SimpleObjectReader
     {
-        public StringReader stream { get; private set; }
+        public StringReader Stream { get; private set; }
 
         public SimpleObjectReader(StringReader stream)
         {
-            this.stream = stream;
+            this.Stream = stream;
         }
 
         public Object Next()
         {
-            if(stream != null) 
+            if(Stream != null) 
             {
-                var s = stream.ReadLine();
-                if(s.Contains("Instance of "))
+                var s = Stream.ReadLine();
+                if(s != null && s.Contains("Instance of "))
                 {
-                    var splits = s.Split(' ');                 
-                    var o = Activator.CreateInstance(Type.GetType(splits[2]));
+                    var splits = s.Split(' ');
                     var t = Type.GetType(splits[2]);
+                    if (t == null) { return null;}
+                    var o = Activator.CreateInstance(t);
                     
                     while (s != null && o != null && !s.Contains("End of instance"))
                     {
@@ -37,7 +38,7 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib.Util
                         {
                             stringSplit = s.Split(' ');
                             pinfo = o.GetType().GetProperty(stringSplit[0]);
-                            Console.WriteLine(stringSplit[0]);
+                            //Console.WriteLine(stringSplit[0]);
                             pinfo.SetValue(o, this.Next());
                         }
                         else
@@ -63,7 +64,7 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib.Util
                                 }
                             }
                         }
-                        s = stream.ReadLine();
+                        s = Stream.ReadLine();
                     }
                     return o;
                 }
