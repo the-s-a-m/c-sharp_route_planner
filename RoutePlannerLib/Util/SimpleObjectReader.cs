@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -55,11 +56,11 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib.Util
                                 {
                                     if (pinfo.GetValue(o) is double)
                                     {
-                                        pinfo.SetValue(o, Double.Parse(stringSplit[1]));
+                                        pinfo.SetValue(o, Double.Parse(stringSplit[1], CultureInfo.InvariantCulture));
                                     }
                                     else if (pinfo.GetValue(o) is Int32)
                                     {
-                                        pinfo.SetValue(o, Int32.Parse(stringSplit[1]));
+                                        pinfo.SetValue(o, Int32.Parse(stringSplit[1], CultureInfo.InvariantCulture));
                                     }
                                 }
                             }
