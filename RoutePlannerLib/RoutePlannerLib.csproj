@@ -44,7 +44,7 @@
   <ItemGroup>
     <Compile Include="Cities.cs" />
     <Compile Include="City.cs" />
-    <Compile Include="Util\ExcelExchange.cs" />
+    <Compile Include="ExcelExchange.cs" />
     <Compile Include="IRoutes.cs" />
     <Compile Include="Link.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -61,6 +61,7 @@
     <Compile Include="Util\SimpleObjectWriter.cs" />
     <Compile Include="Util\TextReaderExtension.cs" />
     <Compile Include="WayPoint.cs" />
+    <Compile Include="World.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config">
