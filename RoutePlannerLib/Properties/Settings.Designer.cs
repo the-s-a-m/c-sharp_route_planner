@@ -23,12 +23,15 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib.Properties {
             }
         }
         
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("Fhnw.Ecnf.RoutePlanner.RoutePlannerLib.Routes")]
         public string RouteAlgorithm {
             get {
                 return ((string)(this["RouteAlgorithm"]));
+            }
+            set {
+                this["RouteAlgorithm"] = value;
             }
         }
     }

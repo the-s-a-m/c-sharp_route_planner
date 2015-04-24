@@ -6,12 +6,14 @@ using System.Threading.Tasks;
 using Fhnw.Ecnf.RoutePlanner.RoutePlannerLib;
 using System.IO;
 using Fhnw.Ecnf.RoutePlanner.RoutePlannerLib.Util;
+using System.Diagnostics;
 
 namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerConsole
 {
     class RoutePlannerConsoleApp
     {
         private const string CitiesTestFile = "citiesTestDataLab3.txt";
+        private static TraceSource routesLogger = new TraceSource("Routes");
 
         static void Main(string[] args)
         {
@@ -26,8 +28,13 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerConsole
             Console.WriteLine(bern.Distance(tripolis));
 
             var cities = new Cities();
+            cities.ReadCities("citiesTestDataLab4.txt");
             IRoutes routes = RoutesFactory.Create(cities);
             Console.WriteLine(routes);
+            var count = routes.ReadRoutes("linksTestDataLab4.txt");
+
+            //TestError Loading Lab9 b)
+            var count2 = routes.ReadRoutes("linksTestDataLab42.txt");
 
             var c1 = new City("Aarau", "Switzerland", 10, 1.1, 2.2);
             var c2 = new City("Bern", "Switzerland", 10, 1.1, 2.2);
@@ -63,8 +70,24 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerConsole
             foreach (var a in actions)
             {
                 a();
-            } 
+            }
 
+            //Lab9 a1 c) Console & File Test of Readcities
+            var cities3 = new Cities();
+            cities3.ReadCities("citiesTestDataLab4.txt");
+            IRoutes routes2 = RoutesFactory.Create(cities);
+
+            //Lab9 a1 b) Loading from existing file
+            var count3 = routes.ReadRoutes("linksTestDataLab4.txt");
+
+            //Lab9 a1 b) Writing to file but not to console
+            routesLogger.TraceEvent(TraceEventType.Information, 01, "this should not be on the console");
+
+
+            //Lab9 a1 b) Loding not existing file
+            var count4 = routes.ReadRoutes("linksTestDataLab42.txt");
+            
+            
             Console.ReadLine();
         }
     }

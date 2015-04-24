@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Globalization;
 using Fhnw.Ecnf.RoutePlanner.RoutePlannerLib.Util;
+using System.Diagnostics;
 
 
 namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
@@ -13,6 +14,7 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
     public class Cities
     {
         private readonly List<City> cityList;
+        private static TraceSource citiesLogger = new TraceSource("Cities");
 
         public Cities()
         {
@@ -71,6 +73,8 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
         /// <returns>Number of new cities</returns>
         public int ReadCities(string filename)
         {
+            citiesLogger.TraceEvent(TraceEventType.Information, 1, "ReadCities started");
+
             using (TextReader reader = new StreamReader(filename))
             {
                 var lines = reader.GetSplittedLines('\t');
@@ -84,6 +88,7 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
                         laltitude: Double.Parse(l[3], CultureInfo.InvariantCulture),
                         longitude: Double.Parse(l[4], CultureInfo.InvariantCulture))
                 );
+                citiesLogger.TraceEvent(TraceEventType.Information, 2, "ReadCities ended");
                 return cityList.Count - count0;
             }
         }

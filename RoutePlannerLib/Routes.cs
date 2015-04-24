@@ -6,6 +6,7 @@ using System.Threading;
 using System.Linq;
 using Fhnw.Ecnf.RoutePlanner.RoutePlannerLib;
 using Fhnw.Ecnf.RoutePlanner.RoutePlannerLib.Util;
+using System.Diagnostics;
 
 namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
 {
@@ -18,6 +19,7 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
         private readonly Cities cities;
         public delegate void RouteRequestHandler(object sender, RouteRequestEventArgs e);
         public event RouteRequestHandler RouteRequestEvent;
+        private static TraceSource routesLogger = new TraceSource("Routes");
 
         public int Count
         {
@@ -41,9 +43,13 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
         /// <returns>number of read route</returns>
         public int ReadRoutes(string filename)
         {
-            using (TextReader reader = new StreamReader(filename))
+            routesLogger.TraceEvent(TraceEventType.Information, 3, "ReadRoutes started");
+            try
             {
-                foreach(var line in reader.GetSplittedLines('\t')){
+                TextReader reader = new StreamReader(filename);
+
+                foreach (var line in reader.GetSplittedLines('\t'))
+                {
 
                     City city1 = cities.FindCity(line[0]);
                     City city2 = cities.FindCity(line[1]);
@@ -55,7 +61,14 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
                     }
                 }
             }
+            catch (FileNotFoundException e)
+            {
+                routesLogger.TraceEvent(TraceEventType.Critical, 9, e.ToString());
+            }
 
+                
+            
+            routesLogger.TraceEvent(TraceEventType.Information, 4, "ReadRoutes ended");
             return Count;
 
         }
