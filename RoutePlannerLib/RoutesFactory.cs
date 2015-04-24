@@ -22,7 +22,7 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
             {
                 try
                 {
-                    Assembly a = Assembly.LoadFrom("RoutePlannerLib.dll");
+                    Assembly a = Assembly.GetExecutingAssembly();
                     var tOfAssembly = a.GetType(algorithmClassName);
                     if (tOfAssembly != null)
                     {

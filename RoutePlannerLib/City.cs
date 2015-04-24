@@ -32,5 +32,18 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
             Location = new WayPoint(Name, laltitude, longitude);
         }
 
+        public override bool Equals(object obj)
+        {
+            if (obj == null)
+            {
+                return false;
+            }
+            City c = obj as City;
+            if ((System.Object)c == null)
+            {
+                return false;
+            }
+            return Name == c.Name && Country == c.Country;
+        }
     }
 }

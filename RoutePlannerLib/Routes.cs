@@ -233,6 +233,7 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
         /// <returns></returns>
         public City[] FindCities(TransportModes transportMode)
         {
+            //Not correct
             return routes.Where(r => r.TransportMode == transportMode).SelectMany(r => new City[]{ r.FromCity, r.ToCity }).Distinct().ToArray();
         }
     }
