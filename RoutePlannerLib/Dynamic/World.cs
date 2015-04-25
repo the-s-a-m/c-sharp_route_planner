@@ -10,7 +10,7 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib.Dynamic
 {
     public class World : DynamicObject
     {
-        private Cities cities;
+        private readonly Cities cities;
 
         public World(Cities c)
         {
@@ -24,14 +24,13 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib.Dynamic
             var c = cities.FindCity(binder.Name);
             if (c == null)
             {
-                result = "The city \"" + binder.Name + "\" does not exist!";
-                return true;
+                result = String.Format("The city \"{0}\" does not exist!", binder.Name);
             }
             else
             {
                 result = c;
-                return true;
             }
+            return true;
         }
 
 

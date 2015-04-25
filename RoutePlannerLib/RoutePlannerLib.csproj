@@ -61,7 +61,7 @@
     <Compile Include="Util\SimpleObjectWriter.cs" />
     <Compile Include="Util\TextReaderExtension.cs" />
     <Compile Include="WayPoint.cs" />
-    <Compile Include="World.cs" />
+    <Compile Include="Dynamic\World.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config">

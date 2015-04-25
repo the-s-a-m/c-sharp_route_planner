@@ -29,7 +29,7 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib.Export
             data[0, 0] = "From";
             data[0, 1] = "To";
             data[0, 2] = "Distance";
-            data[0, 3] = "Transporte \n Mode";
+            data[0, 3] = "Transporte\nMode";
 
             var range = ws.Range["A1:D1"];
             range.Font.Size = 14;
