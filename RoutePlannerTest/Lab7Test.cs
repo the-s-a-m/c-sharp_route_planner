@@ -23,12 +23,9 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerTest
             var aarau = new City("Aarau", "Switzerland", 10000, 35.876174, 12.187507);
             var link1 = new Link(bern, aarau, 15, TransportModes.Ship);
             var link2 = new Link(aarau, zuerich, 20, TransportModes.Ship);
-            var links = new List<Link>();
-            links.Add(link1);
-            links.Add(link2);
+            var links = new List<Link> {link1, link2};
 
             var excel = new ExcelExchange();
-
 
             excel.WriteToFile(excelFileName, bern, zuerich, links);
 

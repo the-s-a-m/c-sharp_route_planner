@@ -23,8 +23,7 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib.Export
             var workbook = excel.Workbooks.Add();
             var ws = (Worksheet)workbook.Worksheets[1];
 
-            
-            var columns = 4;
+            const int columns = 4;
 
             var data = new object[links.Count + 1, columns];
             data[0, 0] = "From";
@@ -32,25 +31,22 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib.Export
             data[0, 2] = "Distance";
             data[0, 3] = "Transporte \n Mode";
 
-            var range = ws.get_Range("A1:D1");
+            var range = ws.Range["A1:D1"];
             range.Font.Size = 14;
             range.Font.Bold = true;
             range.EntireColumn.ColumnWidth = 20;
-            var borders = range.Borders;
-            borders[XlBordersIndex.xlEdgeBottom].LineStyle = XlLineStyle.xlContinuous;
-            borders[XlBordersIndex.xlEdgeTop].LineStyle = XlLineStyle.xlContinuous;
-            borders[XlBordersIndex.xlEdgeRight].LineStyle = XlLineStyle.xlContinuous;
-            borders[XlBordersIndex.xlEdgeLeft].LineStyle = XlLineStyle.xlContinuous;
-            borders[XlBordersIndex.xlInsideVertical].LineStyle = XlLineStyle.xlContinuous;
-
+            foreach (var border in new[] { XlBordersIndex.xlEdgeBottom, XlBordersIndex.xlEdgeTop, XlBordersIndex.xlEdgeRight, XlBordersIndex.xlEdgeLeft, XlBordersIndex.xlInsideVertical })
+            {
+                range.Borders[border].LineStyle = XlLineStyle.xlContinuous;
+            }
 
             int pos = 1;
             foreach (var link in links)
             {
-                data[pos, 0] = link.FromCity.Name;
-                data[pos, 1] = link.ToCity.Name;
+                data[pos, 0] = String.Format("{0} ({1})", link.FromCity.Name, link.FromCity.Country);
+                data[pos, 1] = String.Format("{0} ({1})", link.ToCity.Name, link.ToCity.Country);
                 data[pos, 2] = link.Distance;
-                data[pos, 3] = link.TransportMode;
+                data[pos, 3] = link.TransportMode.ToString();
                 pos++;
             }
 
