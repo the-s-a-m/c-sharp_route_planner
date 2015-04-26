@@ -34,7 +34,7 @@ namespace GC_Tester
     {
         static void Main(string[] args)
         {
-            GC_TestClass tc = new GC_TestClass(1000000);
+            GcTestClass tc = new GcTestClass(1000000);
             //GCSettings.LatencyMode = GCLatencyMode.Batch;
             //GCSettings.LatencyMode = GCLatencyMode.Interactive;
             //GCSettings.LatencyMode = GCLatencyMode.LowLatency;
@@ -44,11 +44,11 @@ namespace GC_Tester
         }
     }
 
-    public class GC_TestClass
+    public class GcTestClass
     {
-        private Stopwatch sw = new Stopwatch();
-        private int size;
-        public GC_TestClass(int size)
+        private readonly Stopwatch sw = new Stopwatch();
+        private readonly int size;
+        public GcTestClass(int size)
         {
             this.size = size;
         }

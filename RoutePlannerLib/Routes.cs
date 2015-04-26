@@ -66,8 +66,6 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
                 routesLogger.TraceEvent(TraceEventType.Critical, 9, e.ToString());
             }
 
-                
-            
             routesLogger.TraceEvent(TraceEventType.Information, 4, "ReadRoutes ended");
             return Count;
 
@@ -154,7 +152,6 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
                         minDist = dist[c];
                     }
                 }
-                    
 
                 if (u != null)
                 {
@@ -208,7 +205,6 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
                 where route.TransportMode.Equals(mode) && (route.FromCity.Equals(city) || route.ToCity.Equals(city))
                 select route.FromCity.Equals(city) ? route.ToCity : route.FromCity
             ).ToList();
-
         }
 
         private List<City> GetCitiesOnRoute(City source, City target, Dictionary<City, City> previous)
