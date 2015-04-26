@@ -34,12 +34,8 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
 
         public override bool Equals(object obj)
         {
-            if (obj == null)
-            {
-                return false;
-            }
             City c = obj as City;
-            if ((System.Object)c == null)
+            if (c == null)
             {
                 return false;
             }
