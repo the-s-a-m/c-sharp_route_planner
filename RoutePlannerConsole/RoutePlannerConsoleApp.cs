@@ -88,7 +88,16 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerConsole
             //Lab9 a1 b) Loding not existing file
             var count4 = routes.ReadRoutes("linksTestDataLab42.txt");
             
-            
+            //Lab10 Tests
+            Console.WriteLine("Lab10 Tests");
+            Cities c10 = new Cities();
+            c10.ReadCities(@"citiesTestDataLab10.txt");
+            Console.WriteLine(c10.Count);
+
+            Routes r10 = new RoutesFloydWarshall(cities);
+            int count10 = r10.ReadRoutes(@"linksTestDataLab10.txt");
+            Console.WriteLine(count10);
+
             Console.ReadLine();
         }
     }

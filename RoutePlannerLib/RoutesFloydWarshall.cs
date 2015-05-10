@@ -19,7 +19,7 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
         public RoutesFloydWarshall(Cities cities):base(cities)
         {
         }
-
+        
 
         public override List<Link> FindShortestRouteBetween(string fromCity, string toCity,
                                         TransportModes mode)

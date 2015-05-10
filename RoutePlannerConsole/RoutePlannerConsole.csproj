@@ -54,7 +54,13 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="citiesTestDataLab10.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="citiesTestDataLab4.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="linksTestDataLab10.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="linksTestDataLab4.txt">

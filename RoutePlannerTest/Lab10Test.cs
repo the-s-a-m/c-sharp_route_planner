@@ -37,7 +37,7 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerTest
             }
     
         }
-        /*
+        
         [TestMethod]
         public void TestTask1FindRoutes()
         {
@@ -105,7 +105,7 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerTest
             Assert.AreEqual(13, links2.Count);
 
         }
-        */
+        
         [TestMethod]
         public void TestTask3CompareAlgorithms()
         {

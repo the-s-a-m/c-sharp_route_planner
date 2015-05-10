@@ -20,6 +20,7 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
         public delegate void RouteRequestHandler(object sender, RouteRequestEventArgs e);
         public event RouteRequestHandler RouteRequestEvent;
         private static TraceSource routesLogger = new TraceSource("Routes");
+        public bool ExecuteParallel { set; get; } 
 
         /// <summary>
         /// Initializes the Routes with the cities.
