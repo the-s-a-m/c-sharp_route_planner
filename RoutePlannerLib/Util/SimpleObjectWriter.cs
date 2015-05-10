@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 
 namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib.Util
 {
@@ -21,21 +22,24 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib.Util
             if (Stream != null && c != null)
             {
                 Stream.Write("Instance of " + c.GetType().FullName + "\r\n");
-                foreach(var p in c.GetType().GetProperties()) 
+                foreach(var p in c.GetType().GetProperties())
                 {
                     var typeOfProp = p.GetValue(c);
-                    if (typeOfProp is string)
+                    if (p.CustomAttributes.Select(x => x.AttributeType == typeof(XmlIgnoreAttribute)).Count() != 1)
                     {
-                        Stream.Write(p.Name + "=\"" + p.GetValue(c) + "\"\r\n");
-                    }
-                    else if (typeOfProp is ValueType)
-                    {
-                        Stream.Write(p.Name + "=" + p.GetValue(c) + "\r\n");
-                    }
-                    else
-                    {
-                        Stream.Write(p.Name + " is a nested object...\r\n");
-                        this.Next(p.GetValue(c));
+                        if (typeOfProp is string)
+                        {
+                            Stream.Write(p.Name + "=\"" + p.GetValue(c) + "\"\r\n");
+                        }
+                        else if (typeOfProp is ValueType)
+                        {
+                            Stream.Write(p.Name + "=" + p.GetValue(c) + "\r\n");
+                        }
+                        else
+                        {
+                            Stream.Write(p.Name + " is a nested object...\r\n");
+                            this.Next(p.GetValue(c));
+                        }
                     }
                 }
                 Stream.Write("End of instance\r\n");

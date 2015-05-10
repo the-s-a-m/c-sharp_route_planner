@@ -23,7 +23,7 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerTest
             Assert.IsInstanceOfType(routes, typeof(IRoutes));
             
             // now test for correct dynamic creation of valid routed class passed as string
-            routes = RoutesFactory.Create(cities, "Fhnw.Ecnf.RoutePlanner.RoutePlannerLib.Routes");
+            routes = RoutesFactory.Create(cities, "Fhnw.Ecnf.RoutePlanner.RoutePlannerLib.RoutesDijkstra");
             Assert.IsInstanceOfType(routes, typeof(IRoutes));
              
         }

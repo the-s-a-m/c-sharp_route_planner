@@ -39,6 +39,7 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerConsole
             var c1 = new City("Aarau", "Switzerland", 10, 1.1, 2.2);
             var c2 = new City("Bern", "Switzerland", 10, 1.1, 2.2);
 
+            Console.WriteLine("\nsimpleObjectWriterTest");
             var stream = new StringWriter();
             var writer = new SimpleObjectWriter(stream);
             writer.Next(c1);

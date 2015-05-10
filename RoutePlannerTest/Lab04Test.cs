@@ -44,7 +44,7 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerTest
             expectedLinks.Add(new Link(new City("Liestal", "Switzerland", 7000, 1, 2),
                                        new City("Basel", "Switzerland", 7000, 1, 2), 0));
 
-            var routes = new Routes(cities);
+            var routes = new RoutesDijkstra(cities);
             var count = routes.ReadRoutes(LinksTestFile);
 
             Assert.AreEqual(10, count);
@@ -66,7 +66,7 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerTest
             expectedLinks.Add(new Link(new City("Liestal", "Switzerland", 7000, 1, 2),
                                        new City("Basel", "Switzerland", 7000, 1, 2), 0));
 
-            var routes = new Routes(cities);
+            var routes = new RoutesDijkstra(cities);
             routes.ReadRoutes(LinksTestFile);
 
             Assert.AreEqual(11, cities.Count);

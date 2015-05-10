@@ -51,13 +51,14 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="Lab7Test.cs" />
-    <Compile Include="Lab6Test.cs" />
-    <Compile Include="Lab2Test.cs" />
-    <Compile Include="Lab3Test.cs" />
-    <Compile Include="Lab4Test.cs" />
-    <Compile Include="Lab5SerializerTest.cs" />
-    <Compile Include="Lab5Test.cs" />
+    <Compile Include="Lab10Test.cs" />
+    <Compile Include="Lab07Test.cs" />
+    <Compile Include="Lab06Test.cs" />
+    <Compile Include="Lab02Test.cs" />
+    <Compile Include="Lab03Test.cs" />
+    <Compile Include="Lab04Test.cs" />
+    <Compile Include="Lab05SerializerTest.cs" />
+    <Compile Include="Lab05Test.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -67,6 +68,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="data\citiesTestDataLab10.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="data\citiesTestDataLab2.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

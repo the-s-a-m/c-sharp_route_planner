@@ -14,7 +14,7 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerTest
         {
             Cities cities = new Cities();
             cities.ReadCities(@"citiesTestDataLab3.txt");
-            var routes = new Routes(cities);
+            var routes = new RoutesDijkstra(cities);
             routes.ReadRoutes(@"linksTestDataLab3.txt");
 
             City[] citiesByMode = routes.FindCities(TransportModes.Rail);

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 
 namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
 {
@@ -13,6 +14,8 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
         public string Country { get; private set; }
         public int Population { get; private set; }
         public WayPoint Location { get; private set; }
+        [XmlIgnore]
+        public int Index { get; set; }
 
         public City() 
         {

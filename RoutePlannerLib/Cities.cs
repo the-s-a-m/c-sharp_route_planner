@@ -131,7 +131,21 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
                         && c.Location.Longitude > minLon && c.Location.Longitude < maxLon));
 
             foundCities.Add(to);
-            return foundCities;
+            return InitIndexForAlgorithm(foundCities);
         }
+
+        /// <summary>
+        /// Create index for eatch city
+        /// </summary>
+        /// <param name="foundCities">List of found cities</param>
+        /// <returns>same object but indexed</returns>
+        private List<City> InitIndexForAlgorithm(List<City> foundCities)
+        {
+            // set index for FloydWarshall 
+            for (var index = 0; index < foundCities.Count; index++)
+                foundCities[index].Index = index;
+
+            return foundCities;
+        } 
     }
 }

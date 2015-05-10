@@ -3,7 +3,7 @@
   <Profiles />
   <Settings>
     <Setting Name="RouteAlgorithm" Type="System.String" Scope="User">
-      <Value Profile="(Default)">Fhnw.Ecnf.RoutePlanner.RoutePlannerLib.Routes</Value>
+      <Value Profile="(Default)">Fhnw.Ecnf.RoutePlanner.RoutePlannerLib.RoutesDijkstra</Value>
     </Setting>
   </Settings>
 </SettingsFile>
