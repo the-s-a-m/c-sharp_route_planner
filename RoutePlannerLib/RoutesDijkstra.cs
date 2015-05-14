@@ -36,6 +36,16 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
             return FindPath(citiesOnRoute, mode);
         }
 
+        public Task<List<Link>> FindShortestRouteBetweenAsync(string fromCity, string toCity, TransportModes mode)
+        {
+            return Task.Run(() => FindShortestRouteBetween(fromCity, toCity, mode));
+        }
+
+        public Task<List<Link>> FindShortestRouteBetweenAsync(string fromCity, string toCity, TransportModes mode, Progress<string> progress)
+        {
+            return Task.Run(() => FindShortestRouteBetween(fromCity, toCity, mode));
+        }
+
         /// <summary>
         /// Searches the shortest path for cities and the given links
         /// </summary>
@@ -108,5 +118,6 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
                 select route.FromCity.Equals(city) ? route.ToCity : route.FromCity
             ).ToList();
         }
+
     }
 }
