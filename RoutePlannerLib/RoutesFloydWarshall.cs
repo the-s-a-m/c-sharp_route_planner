@@ -62,6 +62,10 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
 
         private List<Link> FindAllLinks(List<City> cities, TransportModes mode)
         {
+            if (ExecuteParallel)
+            {
+                return FindAllLinksParallel(cities, mode);
+            }
             var links= new List<Link>();
             foreach(Link r in routes)
                 if( r.IsIncludedIn( cities ) )
@@ -70,13 +74,27 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
             return links;
         }
 
+        private List<Link> FindAllLinksParallel(List<City> cities, TransportModes mode)
+        {
+            return routes.AsParallel().Where(r => r.IsIncludedIn(cities)).ToList();
+        }
+
         private City FindCity(string cityName, List<City> cities)
         {
+            if (ExecuteParallel)
+            {
+                return FindCityParallel(cityName, cities);
+            }
             foreach (City c in cities)
                 if (c.Name == cityName)
                     return c;
 
             return null;
+        }
+
+        private City FindCityParallel(string cityName, List<City> cities)
+        {
+            return cities.AsParallel().FirstOrDefault(c => c.Name == cityName);
         }
 
         private List<City> GetIntermediatePath(City source, City target)
@@ -99,8 +117,7 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
 			for(var k=0; k<cities.Count; k++)
 	            for(var i=0; i<cities.Count; i++)
 	                for(var j=0; j<cities.Count; j++)
-	                    if( D[i,k] != Double.MaxValue 
-	                     && D[k,j] != Double.MaxValue 
+	                    if( D[i,k] != Double.MaxValue && D[k,j] != Double.MaxValue 
 	                     && D[i,k]+D[k,j] < D[i,j] )
 	                    {
 	                        D[i,j] = D[i,k]+D[k,j];
@@ -114,15 +131,20 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
             
 			// initialize with MaxValue:
             for (int i = 0; i < cities.Count; i++)
+            {
                 for (int j = 0; j < cities.Count; j++)
+                {
                     weight[i, j] = Double.MaxValue;
-        
-	        foreach(Link e in links)
+                }   
+            }
+
+            foreach(Link e in links)
 			{
-                weight[e.FromCity.Index,e.ToCity.Index] = e.Distance;
-                weight[e.ToCity.Index,e.FromCity.Index] = e.Distance;
+                weight[e.FromCity.Index, e.ToCity.Index] = e.Distance;
+                weight[e.ToCity.Index, e.FromCity.Index] = e.Distance;
 	        }
 	        return weight;
 	    }
+
     }
 }
