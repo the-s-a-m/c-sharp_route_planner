@@ -21,10 +21,10 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
             Longitude = 0.0;
         }
 
-        public WayPoint(string name, double laltitude, double longitude)
+        public WayPoint(string name, double latitude, double longitude)
         {
             Name = name;
-            Latitude = laltitude;
+            Latitude = latitude;
             Longitude = longitude;
         }
 

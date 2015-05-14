@@ -9,7 +9,7 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
 {
     public class City
     {
-        private readonly double laltitude;
+        private readonly double latitude;
         public string Name { get; private set; }
         public string Country { get; private set; }
         public int Population { get; private set; }
@@ -19,20 +19,20 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
 
         public City() 
         {
-            this.laltitude = 0.0;
+            this.latitude = 0.0;
             Name = "";
             Country = "";
             Population = 0;
             Location = new WayPoint();
         }
 
-        public City(string name, string country, int population, double laltitude, double longitude)
+        public City(string name, string country, int population, double latitude, double longitude)
         {
-            this.laltitude = laltitude;
+            this.latitude = latitude;
             Name = name;
             Country = country;
             Population = population;
-            Location = new WayPoint(Name, laltitude, longitude);
+            Location = new WayPoint(Name, latitude, longitude);
         }
 
         public override bool Equals(object obj)

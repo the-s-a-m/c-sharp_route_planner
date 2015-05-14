@@ -14,12 +14,11 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
     public class Cities
     {
         private readonly List<City> cityList;
-        private static TraceSource CitiesLogger { get; set; }
+        private static TraceSource CitiesLogger = new TraceSource("Cities");
 
         public Cities()
         {
             cityList = new List<City>();
-            CitiesLogger = new TraceSource("Cities");
         }
 
         /// <summary>
@@ -75,9 +74,9 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
         public int ReadCities(string filename)
         {
             CitiesLogger.TraceEvent(TraceEventType.Information, 1, "ReadCities started");
-
-            using (TextReader reader = new StreamReader(filename))
+            try 
             {
+                TextReader reader = new StreamReader(filename);
                 var lines = reader.GetSplittedLines('\t');
                 var count0 = cityList.Count;
                 cityList.AddRange(
@@ -86,11 +85,16 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
                         name: l[0],
                         country: l[1],
                         population: Int32.Parse(l[2], CultureInfo.InvariantCulture),
-                        laltitude: Double.Parse(l[3], CultureInfo.InvariantCulture),
+                        latitude: Double.Parse(l[3], CultureInfo.InvariantCulture),
                         longitude: Double.Parse(l[4], CultureInfo.InvariantCulture))
                 );
                 CitiesLogger.TraceEvent(TraceEventType.Information, 2, "ReadCities ended");
                 return cityList.Count - count0;
+            }
+            catch (FileNotFoundException e)
+            {
+                CitiesLogger.TraceEvent(TraceEventType.Critical, 3, e.ToString());
+                return 0;
             }
         }
 

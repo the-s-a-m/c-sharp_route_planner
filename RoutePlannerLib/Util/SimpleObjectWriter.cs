@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -21,7 +22,8 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib.Util
         {
             if (Stream != null && c != null)
             {
-                Stream.Write("Instance of " + c.GetType().FullName + "\r\n");
+                var cultInv = CultureInfo.InvariantCulture;
+                Stream.Write("Instance of " + c.GetType().FullName + "\r\n", cultInv);
                 foreach(var p in c.GetType().GetProperties())
                 {
                     var typeOfProp = p.GetValue(c);
@@ -29,20 +31,20 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib.Util
                     {
                         if (typeOfProp is string)
                         {
-                            Stream.Write(p.Name + "=\"" + p.GetValue(c) + "\"\r\n");
+                            Stream.Write(p.Name + "=\"" + p.GetValue(c) + "\"\r\n", cultInv);
                         }
                         else if (typeOfProp is ValueType)
                         {
-                            Stream.Write(p.Name + "=" + p.GetValue(c) + "\r\n");
+                            Stream.Write(p.Name + "=" + p.GetValue(c) + "\r\n", cultInv);
                         }
                         else
                         {
-                            Stream.Write(p.Name + " is a nested object...\r\n");
+                            Stream.Write(p.Name + " is a nested object...\r\n", cultInv);
                             this.Next(p.GetValue(c));
                         }
                     }
                 }
-                Stream.Write("End of instance\r\n");
+                Stream.Write("End of instance\r\n", cultInv);
             }
         }
     }
