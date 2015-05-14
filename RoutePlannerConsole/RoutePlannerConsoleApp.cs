@@ -14,6 +14,7 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerConsole
     {
         private const string CitiesTestFile = "citiesTestDataLab3.txt";
         private static TraceSource routesLogger = new TraceSource("Routes");
+        private static readonly Stopwatch sw = new Stopwatch();
 
         static void Main(string[] args)
         {
@@ -97,6 +98,22 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerConsole
             Routes r10 = new RoutesFloydWarshall(cities);
             int count10 = r10.ReadRoutes(@"linksTestDataLab10.txt");
             Console.WriteLine(count10);
+
+            // test short routes in parallel mode
+            r10.ExecuteParallel = true;
+            sw.Start();
+            List<Link> links = routes.FindShortestRouteBetween("Lyon", "Berlin", TransportModes.Rail);
+            sw.Stop();
+            Console.WriteLine("Parallel: " + sw.ElapsedMilliseconds);
+
+            // test short routes in seqential mode
+            r10.ExecuteParallel = false;
+            sw.Restart();
+            List<Link> links2 = routes.FindShortestRouteBetween("Lyon", "Berlin", TransportModes.Rail);
+            sw.Stop();
+            Console.WriteLine("Sequential: " + sw.ElapsedMilliseconds);
+
+            //feststellung Parallel benötigt länger
 
             Console.ReadLine();
         }
