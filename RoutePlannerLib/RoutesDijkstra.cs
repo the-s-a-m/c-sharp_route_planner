@@ -41,6 +41,13 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
             return Task.Run(() => FindShortestRouteBetween(fromCity, toCity, mode));
         }
 
+        public List<Link> GoFindShortestRouteBetween(string fromCity, string toCity, TransportModes mode)
+        {
+            var task = FindShortestRouteBetweenAsync(fromCity, toCity, mode);
+            task.Wait();
+            return task.Result; 
+        }
+
         public Task<List<Link>> FindShortestRouteBetweenAsync(string fromCity, string toCity, TransportModes mode, Progress<string> progress)
         {
             return Task.Run(() => FindShortestRouteBetween(fromCity, toCity, mode));
