@@ -102,14 +102,14 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerConsole
             // test short routes in parallel mode
             r10.ExecuteParallel = true;
             sw.Start();
-            List<Link> links = routes.FindShortestRouteBetween("Lyon", "Berlin", TransportModes.Rail);
+            List<Link> links = routes.FindShortestRouteBetween("Lyon", "Berlin", TransportModes.Rail, null);
             sw.Stop();
             Console.WriteLine("Parallel: " + sw.ElapsedMilliseconds);
 
             // test short routes in seqential mode
             r10.ExecuteParallel = false;
             sw.Restart();
-            List<Link> links2 = routes.FindShortestRouteBetween("Lyon", "Berlin", TransportModes.Rail);
+            List<Link> links2 = routes.FindShortestRouteBetween("Lyon", "Berlin", TransportModes.Rail, null);
             sw.Stop();
             Console.WriteLine("Sequential: " + sw.ElapsedMilliseconds);
 

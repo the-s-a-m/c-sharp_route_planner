@@ -56,7 +56,7 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerTest
             Assert.AreEqual(11, cities.Count);
 
             // test available cities
-            List<Link> links = routes.FindShortestRouteBetween("Zürich", "Basel", TransportModes.Rail);
+            List<Link> links = routes.FindShortestRouteBetween("Zürich", "Basel", TransportModes.Rail, null);
 
             var expectedLinks = new List<Link>();
             expectedLinks.Add(new Link(new City("Zürich", "Switzerland", 7000, 1, 2),
@@ -78,7 +78,7 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerTest
                      expectedLinks[i].ToCity.Name == links[i].FromCity.Name));
             }
 
-            links = routes.FindShortestRouteBetween("doesNotExist", "either", TransportModes.Rail);
+            links = routes.FindShortestRouteBetween("doesNotExist", "either", TransportModes.Rail, null);
             Assert.IsNull(links);
         }
 
