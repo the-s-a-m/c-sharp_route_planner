@@ -112,8 +112,12 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerConsole
             List<Link> links2 = routes.FindShortestRouteBetween("Lyon", "Berlin", TransportModes.Rail, null);
             sw.Stop();
             Console.WriteLine("Sequential: " + sw.ElapsedMilliseconds);
-
             //feststellung Parallel benötigt länger
+
+            //Webpage of uploaded RoutePlannerLib
+            //https://www.nuget.org/packages/FHNW-Lab11-Test/
+
+
 
             Console.ReadLine();
         }
