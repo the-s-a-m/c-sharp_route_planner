@@ -51,7 +51,6 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="Lab10Test.cs" />
     <Compile Include="Lab07Test.cs" />
     <Compile Include="Lab06Test.cs" />
     <Compile Include="Lab02Test.cs" />
@@ -59,6 +58,7 @@
     <Compile Include="Lab04Test.cs" />
     <Compile Include="Lab05SerializerTest.cs" />
     <Compile Include="Lab05Test.cs" />
+    <Compile Include="Lab10Test.cs" />
     <Compile Include="Lab11Test.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

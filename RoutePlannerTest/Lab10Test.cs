@@ -37,7 +37,7 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerTest
             }
     
         }
-        
+
         [TestMethod]
         public void TestTask1FindRoutes()
         {
@@ -89,7 +89,7 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerTest
 
             Routes routes = new RoutesFloydWarshall(cities);
             int count = routes.ReadRoutes(@"linksTestDataLab10.txt");
-            Assert.AreEqual(112, count);
+            Assert.AreEqual(118, count);
 
 
             // test short routes in parallel mode
@@ -105,7 +105,7 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerTest
             Assert.AreEqual(13, links2.Count);
 
         }
-        
+
         [TestMethod]
         public void TestTask3CompareAlgorithms()
         {

@@ -61,8 +61,8 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
                 foreach (var line in reader.GetSplittedLines('\t'))
                 {
 
-                    City city1 = cities.FindCity(line[0]);
-                    City city2 = cities.FindCity(line[1]);
+                    City city1 = cities.FindCity(line[0].Trim(' '));
+                    City city2 = cities.FindCity(line[1].Trim(' '));
 
                     // only add links, where the cities are found 
                     if ((city1 != null) && (city2 != null))

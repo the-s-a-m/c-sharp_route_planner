@@ -66,6 +66,8 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerTest
             // do asynchronous execution
             linksActual =
              await routes.FindShortestRouteBetweenAsync("Basel", "Zürich", TransportModes.Rail, progress);
+			
+			await Task.Delay(1000);
 
             // the following assert has to be made after the routine routine returns 
             // assert, that in minimum 5 progress calls are made
