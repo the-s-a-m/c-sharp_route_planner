@@ -12,24 +12,25 @@ using System.Threading.Tasks;
 namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
 {
     /// <summary>
-    /// Manages a routes from a city to another city.
+    /// Manages a links from a city to another city.
     /// </summary>
     public abstract class Routes : IRoutes
     {
-        protected readonly List<Link> routes = new List<Link>();
-        protected readonly Cities cities;
+        private readonly List<Link> links = new List<Link>();
+        protected Cities Cities { get; private set; }
+
         public delegate void RouteRequestHandler(object sender, RouteRequestEventArgs e);
         public event RouteRequestHandler RouteRequestEvent;
-        private static TraceSource routesLogger = new TraceSource("Routes");
+        private static readonly TraceSource RoutesLogger = new TraceSource("Routes");
         public bool ExecuteParallel { set; get; } 
 
         /// <summary>
         /// Initializes the Routes with the cities.
         /// </summary>
         /// <param name="cities"></param>
-        public Routes(Cities cities)
+        protected Routes(Cities cities)
         {
-            this.cities = cities;
+            this.Cities = cities;
         }
 
         public void NotifyObservers(Object form, RouteRequestEventArgs args)
@@ -42,7 +43,12 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
 
         public int Count
         {
-            get { return routes.Count; }
+            get { return Links.Count; }
+        }
+
+        protected List<Link> Links
+        {
+            get { return links; }
         }
 
         /// <summary>
@@ -53,30 +59,29 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
         /// <returns>number of read route</returns>
         public int ReadRoutes(string filename)
         {
-            routesLogger.TraceEvent(TraceEventType.Information, 3, "ReadRoutes started");
+            RoutesLogger.TraceEvent(TraceEventType.Information, 3, "ReadRoutes started");
             try
             {
                 TextReader reader = new StreamReader(filename);
 
                 foreach (var line in reader.GetSplittedLines('\t'))
                 {
-
-                    City city1 = cities.FindCity(line[0].Trim(' '));
-                    City city2 = cities.FindCity(line[1].Trim(' '));
+                    City city1 = Cities.FindCity(line[0].Trim(' '));
+                    City city2 = Cities.FindCity(line[1].Trim(' '));
 
                     // only add links, where the cities are found 
                     if ((city1 != null) && (city2 != null))
                     {
-                        routes.Add(new Link(city1, city2, city1.Location.Distance(city2.Location), TransportModes.Rail));
+                        Links.Add(new Link(city1, city2, city1.Location.Distance(city2.Location), TransportModes.Rail));
                     }
                 }
             }
             catch (FileNotFoundException e)
             {
-                routesLogger.TraceEvent(TraceEventType.Critical, 9, e.ToString());
+                RoutesLogger.TraceEvent(TraceEventType.Critical, 9, e.ToString());
             }
 
-            routesLogger.TraceEvent(TraceEventType.Information, 4, "ReadRoutes ended");
+            RoutesLogger.TraceEvent(TraceEventType.Information, 4, "ReadRoutes ended");
             return Count;
 
         }
@@ -86,7 +91,7 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
         protected List<Link> FindPath(List<City> citiesOnRoute, TransportModes mode)
         {
             var citiesAsLinks = new List<Link>(citiesOnRoute.Count);
-            for(int i = 0; i < citiesOnRoute.Count - 1; i++)
+            for(var i = 0; i < citiesOnRoute.Count - 1; i++)
             {
                 City c1 = citiesOnRoute[i];
                 City c2 = citiesOnRoute[i + 1];
@@ -110,7 +115,6 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
 
             return q;
         }
-
 
         //Für was wird der transportMode übergeben, dieser ist als readonly markiert im waypoint?
         protected Link FindLink(City u, City n, TransportModes mode)
@@ -159,13 +163,13 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
         }
 
         /// <summary>
-        /// Returns a set (unique entries) of cities, which have routes with this transport mode.
+        /// Returns a set (unique entries) of cities, which have links with this transport mode.
         /// </summary>
         /// <param name="transportMode"></param>
         /// <returns></returns>
         public City[] FindCities(TransportModes transportMode)
         {
-            return routes.Where(r => r.TransportMode == transportMode).SelectMany(r => new City[]{ r.FromCity, r.ToCity }).Distinct().ToArray();
+            return Links.Where(r => r.TransportMode == transportMode).SelectMany(r => new City[]{ r.FromCity, r.ToCity }).Distinct().ToArray();
         }
     }
 }

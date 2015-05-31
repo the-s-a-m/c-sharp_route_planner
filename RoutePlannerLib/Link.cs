@@ -68,37 +68,8 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
         /// <returns>true if both link-cities are in the list</returns>
         internal bool IsIncludedIn(List<City> cities)
         {
-            var testFrom = cities.FirstOrDefault(c => c.Name == FromCity.Name) != null;
-            var testTo = cities.FirstOrDefault(c => c.Name == ToCity.Name) != null;
-            return testFrom && testTo;
+            return cities.Any(c => c.Name == FromCity.Name) &&
+                   cities.Any(c => c.Name == ToCity.Name);
         }
-
-        /*
-         /// <summary> 
-         /// checks if both cities of the link are included in the passed city list 
-         /// </summary> 
-         /// <param name="cities">list of city objects</param> 
-         /// <returns>true if both link-cities are in the list</returns> 
-         internal bool IsIncludedIn(List<City> cities) 
-         { 
-             var foundFrom = false; 
-             var foundTo = false; 
-             foreach (var c in cities) 
-             {
-                 if (!foundFrom && c.Name == FromCity.Name)
-                 {
-                     foundFrom = true;
-                 }
-                 if (!foundTo && c.Name == ToCity.Name)
-                 {
-                     foundTo = true;
-                 }
-                 if (foundTo && foundFrom)
-                 {
-                     return true;
-                 } 
-             }
-             return false;
-         } */
     }
 }

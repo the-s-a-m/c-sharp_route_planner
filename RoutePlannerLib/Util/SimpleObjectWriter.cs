@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
+using System.Reflection;
 
 namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib.Util
 {
@@ -18,33 +19,33 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib.Util
             this.Stream = stream;
         }
 
-        public void Next(Object c)
+        public void Next(object c)
         {
+            var getValue = new Func<PropertyInfo, object, object>((p,obj) => p.GetValue(obj, System.Reflection.BindingFlags.GetProperty, null, null, CultureInfo.InvariantCulture));
             if (Stream != null && c != null)
             {
-                var cultInv = CultureInfo.InvariantCulture;
-                Stream.Write("Instance of " + c.GetType().FullName + "\r\n", cultInv);
+                Stream.WriteLine("Instance of {0}", c.GetType().FullName);
                 foreach(var p in c.GetType().GetProperties())
                 {
                     var typeOfProp = p.GetValue(c);
-                    if (p.CustomAttributes.Select(x => x.AttributeType == typeof(XmlIgnoreAttribute)).Count() != 1)
+                    if (!p.CustomAttributes.Select(x => x.AttributeType == typeof(XmlIgnoreAttribute)).Any())
                     {
                         if (typeOfProp is string)
                         {
-                            Stream.Write(p.Name + "=\"" + p.GetValue(c) + "\"\r\n", cultInv);
+                            Stream.WriteLine("{0}=\"{1}\"", p.Name, getValue(p, c));
                         }
                         else if (typeOfProp is ValueType)
                         {
-                            Stream.Write(p.Name + "=" + p.GetValue(c) + "\r\n", cultInv);
+                            Stream.WriteLine("{0}={1}", p.Name, getValue(p, c));
                         }
                         else
                         {
-                            Stream.Write(p.Name + " is a nested object...\r\n", cultInv);
-                            this.Next(p.GetValue(c));
+                            Stream.WriteLine("{0} is a nested object...", p.Name);
+                            this.Next(getValue(p, c));
                         }
                     }
                 }
-                Stream.Write("End of instance\r\n", cultInv);
+                Stream.WriteLine("End of instance");
             }
         }
     }

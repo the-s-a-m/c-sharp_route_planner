@@ -24,7 +24,7 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
         public override List<Link> FindShortestRouteBetween(string fromCity, string toCity,
                                         TransportModes mode, IProgress<string> reportProgress)
         {
-            List<City> citiesBetween = cities.FindCitiesBetween(cities.FindCity(fromCity), cities.FindCity(toCity));
+            List<City> citiesBetween = Cities.FindCitiesBetween(Cities.FindCity(fromCity), Cities.FindCity(toCity));
             if (citiesBetween == null || citiesBetween.Count < 1)
                 return null;
 
@@ -32,9 +32,9 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
             if (links == null || links.Count < 1)
                 return null;
 
-			var stopWatch = new Stopwatch();
+			/*var stopWatch = new Stopwatch();
 			stopWatch.Start();
-			long ts0=stopWatch.ElapsedMilliseconds;
+			long ts0=stopWatch.ElapsedMilliseconds;*/
 
             Setup(citiesBetween, links);
 
@@ -47,15 +47,15 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
 
             // must construct route from path
             var route = new List<Link>();
-            route.Add( new Link(source, path.ElementAt(0), D[source.Index, path.ElementAt(0).Index] ) );
+            route.Add(new Link(source, path.ElementAt(0), D[source.Index, path.ElementAt(0).Index]));
             for(var i = 0; i < path.Count - 1; i++)
             {
                 City from = path.ElementAt(i);
                 City to = path.ElementAt(i + 1);
-                route.Add( new Link(from, to, D[from.Index, to.Index]) );
+                route.Add(new Link(from, to, D[from.Index, to.Index]));
             }
-            route.Add( new Link(path.ElementAt(path.Count - 1), target, 
-                                D[path.ElementAt(path.Count - 1).Index, target.Index]) );
+            route.Add(new Link(path.ElementAt(path.Count - 1), target, 
+                                D[path.ElementAt(path.Count - 1).Index, target.Index]));
             return route;
 
         }
@@ -66,17 +66,12 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
             {
                 return FindAllLinksParallel(cities, mode);
             }
-            var links= new List<Link>();
-            foreach(Link r in routes)
-                if( r.IsIncludedIn( cities ) )
-                    links.Add(r);
-
-            return links;
+            return Links.Where(r => r.IsIncludedIn(cities)).ToList();
         }
 
         private List<Link> FindAllLinksParallel(List<City> cities, TransportModes mode)
         {
-            return routes.AsParallel().Where(r => r.IsIncludedIn(cities)).ToList();
+            return Links.AsParallel().Where(r => r.IsIncludedIn(cities)).ToList();
         }
 
         private City FindCity(string cityName, List<City> cities)
@@ -85,11 +80,7 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
             {
                 return FindCityParallel(cityName, cities);
             }
-            foreach (City c in cities)
-                if (c.Name == cityName)
-                    return c;
-
-            return null;
+            return cities.FirstOrDefault(c => c.Name == cityName);
         }
 
         private City FindCityParallel(string cityName, List<City> cities)
@@ -103,13 +94,13 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
 	            return new List<City>();
 
 			var path = new List<City>();
-	        path.AddRange( GetIntermediatePath(source, P[source.Index, target.Index]));
-	        path.Add( P[source.Index, target.Index] );
-	        path.AddRange( GetIntermediatePath(P[source.Index, target.Index], target));
+	        path.AddRange(GetIntermediatePath(source, P[source.Index, target.Index]));
+	        path.Add(P[source.Index, target.Index]);
+	        path.AddRange(GetIntermediatePath(P[source.Index, target.Index], target));
 	        return path;
         }
 
-        private void Setup(List<City> cities, List<Link> links)
+        private void Setup(List<City> cities, List<Link> links) //Note to self: Not parrallelized, because written D values could be cached (not written to RAM -> not available to other threads), while another thread (with another partition) needs this value later on
 		{
 	        D = InitializeWeight(cities, links);
 	        P = new City[cities.Count, cities.Count];
@@ -129,7 +120,7 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
 		{
 	        var weight = new double[cities.Count, cities.Count];
             
-			// initialize with MaxValue:
+			// initialize with MaxValue
             for (int i = 0; i < cities.Count; i++)
             {
                 for (int j = 0; j < cities.Count; j++)

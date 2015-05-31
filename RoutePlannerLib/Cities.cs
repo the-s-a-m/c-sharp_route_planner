@@ -129,7 +129,6 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
             var minLon = Math.Min(from.Location.Longitude, to.Location.Longitude);
             var maxLon = Math.Max(from.Location.Longitude, to.Location.Longitude);
 
-            // rename the name of the "cities" variable to your name of the internal City-List
             foundCities.AddRange(cityList.FindAll(c =>
                 c.Location.Latitude > minLat && c.Location.Latitude < maxLat
                         && c.Location.Longitude > minLon && c.Location.Longitude < maxLon));
